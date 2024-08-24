@@ -4,7 +4,6 @@ using Microsoft.UI.Xaml.Input;
 
 using System;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace WhatTheTea.Paint.ViewModels;
 
