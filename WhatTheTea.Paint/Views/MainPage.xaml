@@ -9,9 +9,27 @@
       Background="Transparent">
 
     <Grid>
-        <Canvas PointerPressed="{x:Bind ViewModel.Canvas_PointerPressed}"
-                PointerMoved="{x:Bind ViewModel.Canvas_PointerMove}"
-                PointerReleased="{x:Bind ViewModel.Canvas_PointerReleased}"
-                Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <AppBar IsOpen="True">
+            <StackPanel Orientation="Horizontal">
+                <AppBarToggleButton Command="{StaticResource DrawCommand}"
+                                    IsChecked="{x:Bind ViewModel.CommandSelections[0], Mode=OneWay}" />
+                <AppBarToggleButton Command="{StaticResource EraseCommand}"
+                                    IsChecked="{x:Bind ViewModel.CommandSelections[1], Mode=OneWay}" />
+                <Slider Width="80"
+                        Value="{x:Bind ViewModel.CanvasViewModel.StrokeThickness, Mode=TwoWay}"
+                        Maximum="10" />
+            </StackPanel>
+
+        </AppBar>
+        <Canvas PointerPressed="{x:Bind ViewModel.CanvasViewModel.Canvas_PointerPressed}"
+                PointerMoved="{x:Bind ViewModel.CanvasViewModel.Canvas_PointerMove}"
+                PointerReleased="{x:Bind ViewModel.CanvasViewModel.Canvas_PointerReleased}"
+                PointerExited="{x:Bind ViewModel.CanvasViewModel.Canvas_PointerReleased}"
+                Background="White"
+                Grid.Row="1" />
     </Grid>
 </Page>

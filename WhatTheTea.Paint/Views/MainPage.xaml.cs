@@ -12,7 +12,7 @@ namespace WhatTheTea.Paint.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    [DependencyProperty<CanvasViewModel>("ViewModel")]
+    [DependencyProperty<MainViewModel>("ViewModel")]
     public sealed partial class MainPage : Page
     {
         public MainPage()

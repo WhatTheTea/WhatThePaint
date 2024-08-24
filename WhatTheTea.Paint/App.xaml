@@ -10,7 +10,19 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <!--  Other merged dictionaries here  -->
             </ResourceDictionary.MergedDictionaries>
-            <viewmodels:CanvasViewModel x:Key="CanvasViewModel" />
+            <viewmodels:MainViewModel x:Key="MainViewModel" />
+            <XamlUICommand Label="Draw"
+                           x:Key="DrawCommand">
+                <XamlUICommand.IconSource>
+                    <SymbolIconSource Symbol="Add" />
+                </XamlUICommand.IconSource>
+            </XamlUICommand>
+            <XamlUICommand Label="Erase"
+                           x:Key="EraseCommand">
+                <XamlUICommand.IconSource>
+                    <SymbolIconSource Symbol="Remove" />
+                </XamlUICommand.IconSource>
+            </XamlUICommand>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

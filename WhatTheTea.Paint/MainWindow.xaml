@@ -13,6 +13,6 @@
         <MicaBackdrop Kind="Base" />
     </Window.SystemBackdrop>
     <Frame>
-        <views:MainPage ViewModel="{StaticResource CanvasViewModel}" />
+        <views:MainPage ViewModel="{StaticResource MainViewModel}" />
     </Frame>
 </Window>
