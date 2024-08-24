@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WhatTheTea.Paint (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "WhatTheTea.Paint (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
