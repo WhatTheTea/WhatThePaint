@@ -1,10 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 using Microsoft.UI.Input;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Shapes;
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+
+using WhatTheTea.Paint.Extensions;
 
 using Windows.UI;
 
@@ -52,18 +61,40 @@ public partial class CanvasViewModel : ObservableObject
     private void DrawLine(Canvas canvas, PointerPoint point)
     {
         var brush = GetBrushFromDrawingMode();
-        var element = new Line()
+
+        var element = new Path() 
         {
             Stroke = brush,
             Fill = brush,
             StrokeThickness = StrokeThickness,
-            X2 = point.Position.X,
-            Y2 = point.Position.Y
+            Data = GetCirclesData(point)
         };
-        EnsureLineStartPoint(point, element);
 
         canvas.Children.Add(element);
         deltaPoint = point;
+    }
+
+    private GeometryGroup GetCirclesData(PointerPoint point)
+    {
+        var group = new GeometryGroup();
+        var startPoint = GetLineStartPoint(point);
+        var endPoint = (point.Position.X, point.Position.Y);
+
+        var circle = new EllipseGeometry()
+        {
+            Center = new(endPoint.X, endPoint.Y),
+            RadiusX = 0, 
+            RadiusY = 0,
+        };
+        var line = new LineGeometry()
+        {
+            StartPoint = new Windows.Foundation.Point(startPoint.x, startPoint.y),
+            EndPoint = new Windows.Foundation.Point(endPoint.X, endPoint.Y),
+        };
+        group.Children.Add(circle);
+        group.Children.Add(line);
+        return group;
+
     }
 
     private SolidColorBrush GetBrushFromDrawingMode() => drawingState switch { 
@@ -73,17 +104,15 @@ public partial class CanvasViewModel : ObservableObject
         _ => throw new System.NotImplementedException(), 
     };
 
-    private void EnsureLineStartPoint(PointerPoint point, Line element)
+    private (int x, int y) GetLineStartPoint(PointerPoint point)
     {
         if (deltaPoint is not null)
         {
-            element.X1 = deltaPoint.Position.X;
-            element.Y1 = deltaPoint.Position.Y;
+            return (x: (int)deltaPoint.Position.X, y: (int)deltaPoint.Position.Y);
         }
         else
         {
-            element.X1 = point.Position.X;
-            element.Y1 = point.Position.Y;
+            return (x: (int)point.Position.X, y: (int)point.Position.Y);
         }
     }
 

@@ -21,7 +21,8 @@
                                     IsChecked="{x:Bind ViewModel.CommandSelections[1], Mode=OneWay}" />
                 <Slider Width="80"
                         Value="{x:Bind ViewModel.CanvasViewModel.StrokeThickness, Mode=TwoWay}"
-                        Maximum="10" />
+                        Maximum="100"
+                        Minimum="1" />
             </StackPanel>
 
         </AppBar>
